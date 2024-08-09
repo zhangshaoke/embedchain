@@ -165,7 +165,7 @@ cython_debug/
 # Database
 db
 test-db
-!embedchain/core/db/
+!embedchain/embedchain/core/db/
 
 .vscode
 .idea/
@@ -179,3 +179,8 @@ notebooks/*.yaml
 
 # cache db
 *.db
+
+# local directories for testing
+eval/
+qdrant_storage/
+.crossnote

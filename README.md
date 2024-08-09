@@ -1,125 +1,161 @@
 <p align="center">
-  <img src="docs/logo/dark.svg" width="400px" alt="Embedchain Logo">
+  <a href="https://github.com/mem0ai/mem0">
+  <img src="docs/images/banner-sm.png" width="800px" alt="Mem0 - The Memory Layer for Personalized AI">
+  </a>
+  <p align="center">
+    <a href="https://mem0.ai">Learn more</a>
+    ·
+    <a href="https://mem0.ai/discord">Join Discord</a>
+  </p>
 </p>
 
 <p align="center">
-  <a href="https://pypi.org/project/embedchain/">
-    <img src="https://img.shields.io/pypi/v/embedchain" alt="PyPI">
+  <a href="https://mem0.ai/discord">
+    <img src="https://dcbadge.vercel.app/api/server/6PzXDgEjG5?style=flat" alt="Mem0 Discord">
   </a>
-  <a href="https://pepy.tech/project/embedchain">
-    <img src="https://static.pepy.tech/badge/embedchain" alt="Downloads">
+  <a href="https://pepy.tech/project/mem0ai">
+    <img src="https://img.shields.io/pypi/dm/mem0ai" alt="Mem0 PyPI - Downloads" >
   </a>
-  <a href="https://embedchain.ai/slack">
-    <img src="https://img.shields.io/badge/slack-embedchain-brightgreen.svg?logo=slack" alt="Slack">
-  </a>
-  <a href="https://embedchain.ai/discord">
-    <img src="https://dcbadge.vercel.app/api/server/6PzXDgEjG5?style=flat" alt="Discord">
-  </a>
-  <a href="https://twitter.com/embedchain">
-    <img src="https://img.shields.io/twitter/follow/embedchain" alt="Twitter">
-  </a>
-  <a href="https://colab.research.google.com/drive/138lMWhENGeEu7Q1-6lNbNTHGLZXBBz_B?usp=sharing">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab">
-  </a>
-  <a href="https://codecov.io/gh/embedchain/embedchain">
-    <img src="https://codecov.io/gh/embedchain/embedchain/graph/badge.svg?token=EMRRHZXW1Q" alt="codecov">
+  <a href="https://www.ycombinator.com/companies/mem0">
+    <img src="https://img.shields.io/badge/Y%20Combinator-S24-orange?style=flat-square" alt="Y Combinator S24">
   </a>
 </p>
 
-<hr />
+# Introduction
 
-## What is Embedchain?
+[Mem0](https://mem0.ai)(pronounced "mem-zero") enhances AI assistants and agents with an intelligent memory layer, enabling personalized AI interactions. Mem0 remembers user preferences, adapts to individual needs, and continuously improves over time, making it ideal for customer support chatbots, AI assistants, and autonomous systems.
 
-Embedchain is an Open Source Framework for personalizing LLM responses. It makes it easy to create and deploy personalized AI apps. At its core, Embedchain follows the design principle of being *"Conventional but Configurable"* to serve both software engineers and machine learning engineers.
+### Core Features
 
-Embedchain streamlines the creation of personalized LLM applications, offering a seamless process for managing various types of unstructured data. It efficiently segments data into manageable chunks, generates relevant embeddings, and stores them in a vector database for optimized retrieval. With a suite of diverse APIs, it enables users to extract contextual information, find precise answers, or engage in interactive chat conversations, all tailored to their own data.
+- **Multi-Level Memory**: User, Session, and AI Agent memory retention
+- **Adaptive Personalization**: Continuous improvement based on interactions
+- **Developer-Friendly API**: Simple integration into various applications
+- **Cross-Platform Consistency**: Uniform behavior across devices
+- **Managed Service**: Hassle-free hosted solution
 
-## 🔧 Quick install
+### Use Cases
 
-### Python API
+Mem0 empowers organizations and individuals to enhance:
+
+- **AI Assistants and agents**: Seamless conversations with a touch of déjà vu
+- **Personalized Learning**: Tailored content recommendations and progress tracking
+- **Customer Support**: Context-aware assistance with user preference memory
+- **Healthcare**: Patient history and treatment plan management
+- **Virtual Companions**: Deeper user relationships through conversation memory
+- **Productivity**: Streamlined workflows based on user habits and task history
+- **Gaming**: Adaptive environments reflecting player choices and progress
+
+## Get Started
+
+The easiest way to set up Mem0 is through the managed [Mem0 Platform](https://app.mem0.ai). This hosted solution offers automatic updates, advanced analytics, and dedicated support. [Sign up](https://app.mem0.ai) to get started.
+
+If you prefer to self-host, use the open-source Mem0 package. Follow the [installation instructions](#install) to get started.
+
+## Installation Instructions <a name="install"></a>
+
+Install the Mem0 package via pip:
 
 ```bash
-pip install embedchain
+pip install mem0ai
 ```
 
-## ✨ Live demo
+Alternatively, you can use Mem0 with one click on the hosted platform [here](https://app.mem0.ai/).
 
-Checkout the [Chat with PDF](https://embedchain.ai/demo/chat-pdf) live demo we created using Embedchain. You can find the source code [here](https://github.com/embedchain/embedchain/tree/main/examples/chat-pdf).
+### Basic Usage
 
-## 🔍 Usage
+Mem0 requires an LLM to function, with `gpt-4o` from OpenAI as the default. However, it supports a variety of LLMs; for details, refer to our [Supported LLMs documentation](https://docs.mem0.ai/llms).
 
-<!-- Demo GIF or Image -->
-<p align="center">
-  <img src="docs/images/cover.gif" width="900px" alt="Embedchain Demo">
-</p>
+First step is to instantiate the memory:
 
-For example, you can create an Elon Musk bot using the following code:
+```python
+from mem0 import Memory
+
+m = Memory()
+```
+
+<details>
+<summary>How to set OPENAI_API_KEY</summary>
 
 ```python
 import os
-from embedchain import App
+os.environ["OPENAI_API_KEY"] = "sk-xxx"
+```
+</details>
 
-# Create a bot instance
-os.environ["OPENAI_API_KEY"] = "<YOUR_API_KEY>"
-app = App()
 
-# Embed online resources
-app.add("https://en.wikipedia.org/wiki/Elon_Musk")
-app.add("https://www.forbes.com/profile/elon-musk")
+You can perform the following task on the memory:
 
-# Query the app
-app.query("How many companies does Elon Musk run and name those?")
-# Answer: Elon Musk currently runs several companies. As of my knowledge, he is the CEO and lead designer of SpaceX, the CEO and product architect of Tesla, Inc., the CEO and founder of Neuralink, and the CEO and founder of The Boring Company. However, please note that this information may change over time, so it's always good to verify the latest updates.
+1. Add: Store a memory from any unstructured text
+2. Update: Update memory of a given memory_id
+3. Search: Fetch memories based on a query
+4. Get: Return memories for a certain user/agent/session
+5. History: Describe how a memory has changed over time for a specific memory ID
+
+```python
+# 1. Add: Store a memory from any unstructured text
+result = m.add("I am working on improving my tennis skills. Suggest some online courses.", user_id="alice", metadata={"category": "hobbies"})
+
+# Created memory --> 'Improving her tennis skills.' and 'Looking for online suggestions.'
 ```
 
-You can also try it in your browser with Google Colab:
+```python
+# 2. Update: update the memory
+result = m.update(memory_id=<memory_id_1>, data="Likes to play tennis on weekends")
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/17ON1LPonnXAtLaZEebnOktstB_1cJJmh?usp=sharing)
+# Updated memory --> 'Likes to play tennis on weekends.' and 'Looking for online suggestions.'
+```
 
-## 📖 Documentation
-Comprehensive guides and API documentation are available to help you get the most out of Embedchain:
+```python
+# 3. Search: search related memories
+related_memories = m.search(query="What are Alice's hobbies?", user_id="alice")
 
-- [Introduction](https://docs.embedchain.ai/get-started/introduction#what-is-embedchain)
-- [Getting Started](https://docs.embedchain.ai/get-started/quickstart)
-- [Examples](https://docs.embedchain.ai/examples)
-- [Supported data types](https://docs.embedchain.ai/components/data-sources/overview)
+# Retrieved memory --> 'Likes to play tennis on weekends'
+```
 
-## 🔗 Join the Community
+```python
+# 4. Get all memories
+all_memories = m.get_all()
+memory_id = all_memories[0]["id"] # get a memory_id
 
-* Connect with fellow developers by joining our [Slack Community](https://embedchain.ai/slack) or [Discord Community](https://embedchain.ai/discord).
+# All memory items --> 'Likes to play tennis on weekends.' and 'Looking for online suggestions.'
+```
 
-* Dive into [GitHub Discussions](https://github.com/embedchain/embedchain/discussions), ask questions, or share your experiences.
+```python
+# 5. Get memory history for a particular memory_id
+history = m.history(memory_id=<memory_id_1>)
 
-## 🤝 Schedule a 1-on-1 Session
+# Logs corresponding to memory_id_1 --> {'prev_value': 'Working on improving tennis skills and interested in online courses for tennis.', 'new_value': 'Likes to play tennis on weekends' }
+```
 
-Book a [1-on-1 Session](https://cal.com/taranjeetio/ec) with the founders, to discuss any issues, provide feedback, or explore how we can improve Embedchain for you.
+> [!TIP]
+> If you prefer a hosted version without the need to set up infrastructure yourself, check out the [Mem0 Platform](https://app.mem0.ai/) to get started in minutes.
 
-## 🌐 Contributing
+## Documentation
 
-Contributions are welcome! Please check out the issues on the repository, and feel free to open a pull request.
-For more information, please see the [contributing guidelines](CONTRIBUTING.md).
+For detailed usage instructions and API reference, visit our documentation at [docs.mem0.ai](https://docs.mem0.ai). Here, you can find more information on both the open-source version and the hosted [Mem0 Platform](https://app.mem0.ai).
 
-For more reference, please go through [Development Guide](https://docs.embedchain.ai/contribution/dev) and [Documentation Guide](https://docs.embedchain.ai/contribution/docs).
+## Star History
 
-<a href="https://github.com/embedchain/embedchain/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=embedchain/embedchain" />
+[![Star History Chart](https://api.star-history.com/svg?repos=mem0ai/mem0&type=Date)](https://star-history.com/#mem0ai/mem0&Date)
+
+## Support
+
+Join our community for support and discussions. If you have any questions, feel free to reach out to us using one of the following methods:
+
+- [Join our Discord](https://mem0.ai/discord)
+- [Follow us on Twitter](https://x.com/mem0ai)
+- [Email founders](mailto:founders@mem0.ai)
+
+## Contributors
+
+Join our [Discord community](https://mem0.ai/discord) to learn about memory management for AI agents and LLMs, and connect with Mem0 users and contributors. Share your ideas, questions, or feedback in our [GitHub Issues](https://github.com/mem0ai/mem0/issues).
+
+We value and appreciate the contributions of our community. Special thanks to our contributors for helping us improve Mem0.
+
+<a href="https://github.com/mem0ai/mem0/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=mem0ai/mem0" />
 </a>
 
-## Anonymous Telemetry
+## License
 
-We collect anonymous usage metrics to enhance our package's quality and user experience. This includes data like feature usage frequency and system info, but never personal details. The data helps us prioritize improvements and ensure compatibility. If you wish to opt-out, set the environment variable `EC_TELEMETRY=false`. We prioritize data security and don't share this data externally.
-
-## Citation
-
-If you utilize this repository, please consider citing it with:
-
-```
-@misc{embedchain,
-  author = {Taranjeet Singh, Deshraj Yadav},
-  title = {Embedchain: The Open Source RAG Framework},
-  year = {2023},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{https://github.com/embedchain/embedchain}},
-}
-```
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.

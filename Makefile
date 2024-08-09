@@ -1,42 +1,33 @@
-# Variables
-PYTHON := python3
-PIP := $(PYTHON) -m pip
-PROJECT_NAME := embedchain
+.PHONY: format sort lint
 
-# Targets
-.PHONY: install format lint clean test ci_lint ci_test coverage
+# Variables
+ISORT_OPTIONS = --profile black
+PROJECT_NAME := mem0ai
+
+# Default target
+all: format sort lint
 
 install:
 	poetry install
 
 install_all:
-	poetry install --all-extras
-	poetry run pip install pinecone-text pinecone-client langchain-anthropic "unstructured[local-inference, all-docs]" ollama deepgram-sdk==3.2.7 langchain-huggingface psutil
+	poetry install
+	poetry run pip install groq together boto3 litellm ollama
 
-install_es:
-	poetry install --extras elasticsearch
-
-install_opensearch:
-	poetry install --extras opensearch
-
-install_milvus:
-	poetry install --extras milvus
-
-shell:
-	poetry shell
-
-py_shell:
-	poetry run python
-
+# Format code with ruff
 format:
-	$(PYTHON) -m black .
-	$(PYTHON) -m isort .
+	poetry run ruff check . --fix $(RUFF_OPTIONS)
 
-clean:
-	rm -rf dist build *.egg-info
+# Sort imports with isort
+sort:
+	poetry run isort . $(ISORT_OPTIONS)
 
+# Lint code with ruff
 lint:
 	poetry run ruff .
+
+docs:
+	cd docs && mintlify dev
 
 build:
 	poetry build
@@ -44,9 +35,8 @@ build:
 publish:
 	poetry publish
 
-# for example: make test file=tests/test_factory.py
-test:
-	poetry run pytest $(file)
+clean:
+	poetry run rm -rf dist
 
-coverage:
-	poetry run pytest --cov=$(PROJECT_NAME) --cov-report=xml
+test:
+	poetry run pytest tests
